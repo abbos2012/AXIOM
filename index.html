@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXIOM — Business Intelligence</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>⚡ AXIOM</h1>
+                <p>Business Intelligence Platform</p>
+            </div>
+            <nav class="nav">
+                <button class="nav-btn active" onclick="showSection('dashboard')">📊 Дашборд</button>
+                <button class="nav-btn" onclick="showSection('calculator')"> Калькулятор</button>
+                <button class="nav-btn" onclick="showSection('competitors')">🎯 Анализ</button>
+                <button class="nav-btn" onclick="showSection('goals')">🎯 Цели</button>
+            </nav>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"></div>
+                    <div class="stat-info">
+                        <h3>Выручка</h3>
+                        <p class="stat-value" id="revenue">0 ₽</p>
+                        <span class="stat-change positive">+12.5%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"></div>
+                    <div class="stat-info">
+                        <h3>Прибыль</h3>
+                        <p class="stat-value" id="profit">0 ₽</p>
+                        <span class="stat-change positive">+8.3%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <h3>Клиенты</h3>
+                        <p class="stat-value" id="clients">0</p>
+                        <span class="stat-change positive">+24</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-info">
+                        <h3>Конверсия</h3>
+                        <p class="stat-value" id="conversion">0%</p>
+                        <span class="stat-change positive">+2.1%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h2>📊 Прогноз роста</h2>
+                    <div class="chart-container">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2>💡 Генератор идей</h2>
+                    <button class="neon-btn" onclick="generateIdea()">Сгенерировать идею</button>
+                    <div id="idea-result" class="idea-box"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section id="calculator" class="section">
+            <div class="calc-grid">
+                <div class="card">
+                    <h2>🧮 Калькулятор ROI</h2>
+                    <div class="form-group">
+                        <label>Инвестиции (₽)</label>
+                        <input type="number" id="investment" placeholder="100000">
+                    </div>
+                    <div class="form-group">
+                        <label>Доход (₽)</label>
+                        <input type="number" id="return" placeholder="150000">
+                    </div>
+                    <button class="neon-btn" onclick="calculateROI()">Рассчитать ROI</button>
+                    <div id="roi-result" class="result-box"></div>
+                </div>
+
+                <div class="card">
+                    <h2>📈 Точка безубыточности</h2>
+                    <div class="form-group">
+                        <label>Постоянные затраты (₽)</label>
+                        <input type="number" id="fixed-costs" placeholder="50000">
+                    </div>
+                    <div class="form-group">
+                        <label>Цена за единицу (₽)</label>
+                        <input type="number" id="price" placeholder="1000">
+                    </div>
+                    <div class="form-group">
+                        <label>Переменные затраты (₽)</label>
+                        <input type="number" id="variable-costs" placeholder="600">
+                    </div>
+                    <button class="neon-btn" onclick="calculateBreakeven()">Рассчитать</button>
+                    <div id="breakeven-result" class="result-box"></div>
+                </div>
+
+                <div class="card">
+                    <h2>💰 Калькулятор маржи</h2>
+                    <div class="form-group">
+                        <label>Себестоимость (₽)</label>
+                        <input type="number" id="cost" placeholder="700">
+                    </div>
+                    <div class="form-group">
+                        <label>Цена продажи (₽)</label>
+                        <input type="number" id="selling-price" placeholder="1000">
+                    </div>
+                    <button class="neon-btn" onclick="calculateMargin()">Рассчитать маржу</button>
+                    <div id="margin-result" class="result-box"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Competitors Section -->
+        <section id="competitors" class="section">
+            <div class="card">
+                <h2>🎯 Анализ конкурентов</h2>
+                <div class="form-row">
+                    <input type="text" id="competitor-name" placeholder="Название конкурента">
+                    <input type="number" id="competitor-price" placeholder="Цена">
+                    <input type="number" id="competitor-quality" placeholder="Качество (1-10)">
+                    <button class="neon-btn" onclick="addCompetitor()">Добавить</button>
+                </div>
+                <div id="competitors-list" class="competitors-grid"></div>
+            </div>
+        </section>
+
+        <!-- Goals Section -->
+        <section id="goals" class="section">
+            <div class="card">
+                <h2>🎯 Бизнес-цели</h2>
+                <div class="form-row">
+                    <input type="text" id="goal-text" placeholder="Новая цель...">
+                    <input type="date" id="goal-date">
+                    <button class="neon-btn" onclick="addGoal()">Добавить цель</button>
+                </div>
+                <div id="goals-list" class="goals-list"></div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
